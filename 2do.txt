@@ -1,0 +1,12 @@
+implement webserver
+    wifi manager
+    read file to web
+
+increase serial buffer size
+
+append changes to web in live
+    read file at request
+        flip a bool at success
+        append to web via AppendToFile if bool flipped
+
+https://diyprojects.io/esp32-get-started-spiff-library-read-write-modify-files/
