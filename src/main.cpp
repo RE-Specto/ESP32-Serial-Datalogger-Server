@@ -9,7 +9,8 @@ ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 #include <Arduino.h>
 #include "SPIFFS.h"
 
-#define BAUD 115200
+#define SERIAL_BAUD 115200
+#define SERIAL_SIZE_RX  16384
 #define FILENAME "/serial.log"
 
 // Globals
@@ -51,7 +52,8 @@ void HardReset(){
 }
 
 void setup() {
-  Serial2.begin(BAUD, SERIAL_8N1);
+  Serial2.begin(SERIAL_BAUD, SERIAL_8N1);
+  Serial2.setRxBufferSize(SERIAL_SIZE_RX);
   SPIFFS.begin();
   file = SPIFFS.open(FILENAME, "a+");
 }

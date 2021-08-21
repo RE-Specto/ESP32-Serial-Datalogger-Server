@@ -1,12 +1,10 @@
 implement webserver
     wifi manager
-    read file to web
+    read uart log file to webUI
 
-increase serial buffer size
-
-append changes to web in live
-    read file at request
-        flip a bool at success
-        append to web via AppendToFile if bool flipped
+append changes to webUI live
+    read uart log file to webUI at request
+        flip a bool after old log sent to webUI
+        append new uart data to webUI using void AppendToFile if bool flipped
 
 https://diyprojects.io/esp32-get-started-spiff-library-read-write-modify-files/
