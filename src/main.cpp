@@ -13,7 +13,7 @@ ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 
 #define SERIAL_BAUD 115200
 #define SERIAL_SIZE_RX  16384
-#define FILENAME "/serial.log"
+#define FILE_LOG "/serial.log"
 
 // Globals
 FS *disk = &SPIFFS; // default
@@ -53,6 +53,35 @@ void HardReset(){
   // add wifi reset here
 }
 
+void setupServer()
+{
+    // Route for root / web page
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+        request->redirect("/getfile"); //untill implemented
+    });
+
+    server.on("/getfile", HTTP_GET, [](AsyncWebServerRequest *request) {
+        if(!disk -> exists(FILE_LOG)){
+            request->send(200, "text/html", "<html><body><center><h1>check SD Card please</h1></center></body></html>");
+            }
+        request->send(*disk, FILE_LOG, String(), false);
+    });
+
+    server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request) {
+        request->send(404);
+    });
+
+    server.on("/reset", HTTP_GET, [](AsyncWebServerRequest *request) {
+        request->redirect("/");
+        vTaskDelay(100 / portTICK_PERIOD_MS); // to prevent reset before redirect
+        ESP.restart();
+    });
+
+    // Start server
+    DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
+    server.begin();
+}
+
 void setup() {
   AsyncWiFiManager wifiManager(&server, &dns);
   wifiManager.setDebugOutput(false);
@@ -61,7 +90,8 @@ void setup() {
   Serial2.begin(SERIAL_BAUD, SERIAL_8N1);
   Serial2.setRxBufferSize(SERIAL_SIZE_RX);
   SPIFFS.begin();
-  file = SPIFFS.open(FILENAME, "a+");
+  file = SPIFFS.open(FILE_LOG, "a+");
+  setupServer();
 }
 
 void loop() {

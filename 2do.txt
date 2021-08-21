@@ -1,6 +1,3 @@
-implement webserver
-    wifi manager
-    read uart log file to webUI
 
 append changes to webUI live
     read uart log file to webUI at request
