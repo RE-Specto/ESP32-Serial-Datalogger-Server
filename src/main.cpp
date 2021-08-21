@@ -18,30 +18,36 @@ File file;
 //WiFiUDP UDP;
 //AsyncWebServer server(80);
 
+// write one char to file buffer
+// save changes every 4kB
 void AppendToFile(char input) {
   file.write(input);
   if (!(file.size() % 4096)) // flush every 4kB
     file.flush();
 }
 
+// checks Serial2 for data
 void CheckAvail(){
   while (Serial2.available()) {
     AppendToFile(char(Serial2.read()));
   }
 }
 
+// save file by hardware button press
 void CheckSave(){
   if (!digitalRead(0)){ // pin 0 is "boot" button on esp32
     file.flush();
     digitalWrite(2,HIGH); // pin 2 is onboard LED
     delay(500);
     digitalWrite(2,LOW);
-    while (!digitalRead(0)); // wait untill released
+    while (!digitalRead(0)); // wait here untill button is released
   }
 }
 
+// return to initial settings
 void HardReset(){
   SPIFFS.format();
+  // add wifi reset here
 }
 
 void setup() {
