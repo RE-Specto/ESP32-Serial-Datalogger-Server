@@ -8,6 +8,8 @@ ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 */
 #include <Arduino.h>
 #include "SPIFFS.h"
+#include <ESPAsyncWebServer.h>
+#include <ESPAsyncWiFiManager.h>
 
 #define SERIAL_BAUD 115200
 #define SERIAL_SIZE_RX  16384
@@ -16,8 +18,8 @@ ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 // Globals
 FS *disk = &SPIFFS; // default
 File file;
-//WiFiUDP UDP;
-//AsyncWebServer server(80);
+AsyncWebServer server(80);
+DNSServer dns;
 
 // write one char to file buffer
 // save changes every 4kB
@@ -52,6 +54,10 @@ void HardReset(){
 }
 
 void setup() {
+  AsyncWiFiManager wifiManager(&server, &dns);
+  wifiManager.setDebugOutput(false);
+  wifiManager.setConfigPortalTimeout(180);  // 3 minutes
+  wifiManager.autoConnect("AutoConnectAP"); // will stop here if no wifi connected
   Serial2.begin(SERIAL_BAUD, SERIAL_8N1);
   Serial2.setRxBufferSize(SERIAL_SIZE_RX);
   SPIFFS.begin();
