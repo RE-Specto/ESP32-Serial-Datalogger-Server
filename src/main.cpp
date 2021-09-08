@@ -14,6 +14,7 @@ ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 #define SERIAL_BAUD 115200
 #define SERIAL_SIZE_RX  16384
 #define FILE_LOG "/serial.log"
+#define ONBOARD_LED 1 // pin 2 according to google, pin 1 in my board
 
 // Globals
 FS *disk = &SPIFFS; // default
@@ -40,9 +41,9 @@ void CheckAvail(){
 void CheckSave(){
   if (!digitalRead(0)){ // pin 0 is "boot" button on esp32
     file.flush();
-    digitalWrite(2,HIGH); // pin 2 is onboard LED
+    digitalWrite(ONBOARD_LED,LOW); // onboard LED
     delay(500);
-    digitalWrite(2,LOW);
+    digitalWrite(ONBOARD_LED,HIGH);
     while (!digitalRead(0)); // wait here untill button is released
   }
 }
@@ -83,6 +84,8 @@ void setupServer()
 }
 
 void setup() {
+  pinMode(ONBOARD_LED,OUTPUT);
+  digitalWrite(ONBOARD_LED,HIGH); // in my case the LED was inverted
   AsyncWiFiManager wifiManager(&server, &dns);
   wifiManager.setDebugOutput(false);
   wifiManager.setConfigPortalTimeout(180);  // 3 minutes
