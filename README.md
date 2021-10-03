@@ -4,7 +4,6 @@
  - datalogging capabilities using built in flash (+sdcard support later).
  - ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 
----
 ## 2do:
 - [x] save serial data to file
 - [x] web server
