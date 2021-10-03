@@ -58,7 +58,7 @@ void setupServer()
 {
     // Route for root / web page
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->redirect("/getfile"); //untill implemented
+        request->redirect("/getfile"); //until proper webUI implemented
     });
 
     server.on("/getfile", HTTP_GET, [](AsyncWebServerRequest *request) {
@@ -76,6 +76,13 @@ void setupServer()
         request->redirect("/");
         vTaskDelay(100 / portTICK_PERIOD_MS); // to prevent reset before redirect
         ESP.restart();
+    });
+
+    server.on("/format", HTTP_GET, [](AsyncWebServerRequest *request) {
+        HardReset();
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+        request->redirect("/"); // try without reset first..
+        //request->redirect("/reset"); 
     });
 
     // Start server
