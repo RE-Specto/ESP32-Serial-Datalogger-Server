@@ -1,7 +1,0 @@
-
-append changes to webUI live
-    read uart log file to webUI at request
-        flip a bool after old log sent to webUI
-        append new uart data to webUI using void AppendToFile if bool flipped
-
-https://diyprojects.io/esp32-get-started-spiff-library-read-write-modify-files/
