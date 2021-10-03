@@ -22,5 +22,7 @@
 
 ## useful links:
 [websockets vs server-sent events](https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource)
+
 [Server-Sent Events](https://github.com/me-no-dev/ESPAsyncWebServer#async-event-source-plugin)
+
 [syslog](https://github.com/arcao/Syslog)
