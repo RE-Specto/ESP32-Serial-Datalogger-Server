@@ -5,16 +5,16 @@ project in early development.
  - ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 
 2do:
-[x] save serial data to file
-[x] web server
-[x] wifi manager
-[ ] esp8266 support
-[ ] Add OTA update
-[ ] persistent settings file
-[ ] webUI
-[ ] Server-Sent Events or WebSocket
-[ ] log filtering by severity
-[ ] bi-directional serial communication
-[ ] sd card support
-[ ] send syslog
-[ ] telnet
+- [x] save serial data to file
+- [x] web server
+- [x] wifi manager
+- [ ] esp8266 support
+- [ ] Add OTA update
+- [ ] persistent settings file
+- [ ] webUI
+- [ ] Server-Sent Events or WebSocket
+- [ ] log filtering by severity
+- [ ] bi-directional serial communication
+- [ ] sd card support
+- [ ] send syslog
+- [ ] telnet
