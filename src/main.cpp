@@ -13,7 +13,7 @@ ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 
 #define SERIAL_BAUD 115200
 #define SERIAL_SIZE_RX  16384
-#define FILE_LOG "/serial.log"
+#define FILE_LOG "/serial.htm"
 #define ONBOARD_LED 1 // pin 2 according to google, pin 1 in my board
 
 // Globals
@@ -92,7 +92,7 @@ void setup() {
   wifiManager.autoConnect("AutoConnectAP"); // will stop here if no wifi connected
   Serial2.begin(SERIAL_BAUD, SERIAL_8N1);
   Serial2.setRxBufferSize(SERIAL_SIZE_RX);
-  SPIFFS.begin();
+  SPIFFS.begin(true); //formatOnFail true
   file = SPIFFS.open(FILE_LOG, "a+");
   setupServer();
 }
