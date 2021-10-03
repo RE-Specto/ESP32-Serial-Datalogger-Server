@@ -26,8 +26,10 @@ DNSServer dns;
 // save changes every 4kB
 void AppendToFile(char input) {
   file.write(input);
-  if (!(file.size() % 4096)) // flush every 4kB
+  if (input == 10) // same as '\n' - save every newline.
     file.flush();
+//  if (!(file.size() % 4096)) // flush every 4kB
+//    file.flush();
 }
 
 // checks Serial2 for data
