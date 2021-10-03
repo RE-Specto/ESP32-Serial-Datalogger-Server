@@ -7,3 +7,5 @@ include
 lib
 test
 .vscode
+2do.txt
+.gitignore
