@@ -9,7 +9,7 @@
 - [x] web server
 - [x] wifi manager
 - [ ] esp8266 support
-- [ ] Add OTA update
+- [x] Add OTA update
 - [ ] persistent settings file
 - [ ] webUI
 - [ ] Server-Sent Events or WebSocket

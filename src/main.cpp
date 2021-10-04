@@ -10,6 +10,7 @@ ESP32 default UART2:    rx:GPIO16   tx:GPIO17   3.3V TTL Level
 #include "SPIFFS.h"
 #include <ESPAsyncWebServer.h>
 #include <ESPAsyncWiFiManager.h>
+#include <ArduinoOTA.h>
 
 #define SERIAL_BAUD 115200
 #define SERIAL_SIZE_RX  16384
@@ -114,10 +115,13 @@ void setup() {
   Serial2.setRxBufferSize(SERIAL_SIZE_RX);
   SPIFFS.begin(true); //formatOnFail true
   file = SPIFFS.open(FILE_LOG, "a+");
+  ArduinoOTA.setHostname("datalogger");
+  ArduinoOTA.begin();
   setupServer();
 }
 
 void loop() {
   CheckAvail();
   CheckSave();
+  ArduinoOTA.handle();
 }
