@@ -6,6 +6,7 @@
   (though a simple voltage divider, while not the best solution, is sometimes sufficient)
  - proper WebUI will be imlemented soon. right now to view the newlines correctly, you can 'view source' on the address, so you can see the serial data as-is.
  - receive-only right now. sending data to the sensor will be implemented later.
+ - hardcoded to 115200, change manually in the code to the desired data rate. 
 
 ## 2do:
 - [x] save serial data to file
