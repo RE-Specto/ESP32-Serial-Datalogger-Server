@@ -56,6 +56,11 @@ void HardReset(){
   // add wifi reset here
 }
 
+// delete log file
+void Delete(){
+  disk->remove(FILE_LOG);
+}
+
 void setupServer()
 {
     // Route for root / web page
@@ -82,9 +87,15 @@ void setupServer()
 
     server.on("/format", HTTP_GET, [](AsyncWebServerRequest *request) {
         HardReset();
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+        request->redirect("/reset"); 
+    });
+
+    server.on("/delete", HTTP_GET, [](AsyncWebServerRequest *request) {
+        Delete();
         vTaskDelay(100 / portTICK_PERIOD_MS);
-        request->redirect("/"); // try without reset first..
-        //request->redirect("/reset"); 
+        //request->redirect("/"); // try without resetart first..
+        request->redirect("/reset"); // simply restart until implemented
     });
 
     // Start server
