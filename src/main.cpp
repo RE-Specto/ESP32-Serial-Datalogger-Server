@@ -73,7 +73,7 @@ void setupServer()
         if(!disk -> exists(FILE_LOG)){
             request->send(200, "text/html", "<html><body><center><h1>check SD Card please</h1></center></body></html>");
             }
-        request->send(*disk, FILE_LOG, String(), false);
+        request->send(*disk, FILE_LOG, "text/plain");
     });
 
     server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request) {
